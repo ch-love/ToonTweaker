@@ -1,0 +1,20 @@
+# Makefile for C++ optimizations
+CXX = g++
+CXXFLAGS = -fPIC -shared -I/usr/include/python3.x  # Replace '3.x' with your Python version
+
+# Output shared library
+OUTPUT = optimizations.so
+
+# Compile C++ files
+all: $(OUTPUT)
+
+$(OUTPUT): physics_optimization.o python_wrapper.o
+    $(CXX) -o $@ $^ $(CXXFLAGS)
+
+# Compile each object file
+%.o: %.cpp
+    $(CXX) -c $< $(CXXFLAGS)
+
+# Clean build artifacts
+clean:
+    rm -f *.o $(OUTPUT)
